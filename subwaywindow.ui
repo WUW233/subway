@@ -70,7 +70,11 @@
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_4">
             <item>
-             <widget class="QLineEdit" name="qidianEdit"/>
+             <widget class="QLineEdit" name="qidianEdit">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
             </item>
             <item>
              <widget class="QPushButton" name="qiButton">
@@ -249,6 +253,7 @@
      <string>工具</string>
     </property>
     <addaction name="action"/>
+    <addaction name="action_6"/>
    </widget>
    <widget class="QMenu" name="menu_3">
     <property name="title">
@@ -297,10 +302,11 @@
    <addaction name="action_3"/>
    <addaction name="action_4"/>
    <addaction name="action_5"/>
+   <addaction name="action_6"/>
   </widget>
   <action name="action">
    <property name="icon">
-    <iconset>
+    <iconset resource="images.qrc">
      <normaloff>:/image/Image/sousuo.png</normaloff>:/image/Image/sousuo.png</iconset>
    </property>
    <property name="text">
@@ -309,7 +315,7 @@
   </action>
   <action name="action_2">
    <property name="icon">
-    <iconset>
+    <iconset resource="images.qrc">
      <normaloff>:/image/Image/ditu.png</normaloff>:/image/Image/ditu.png</iconset>
    </property>
    <property name="text">
@@ -318,7 +324,7 @@
   </action>
   <action name="action_3">
    <property name="icon">
-    <iconset>
+    <iconset resource="images.qrc">
      <normaloff>:/image/Image/tielu.png</normaloff>:/image/Image/tielu.png</iconset>
    </property>
    <property name="text">
@@ -335,7 +341,14 @@
     <string>缩小</string>
    </property>
   </action>
+  <action name="action_6">
+   <property name="text">
+    <string>刷新</string>
+   </property>
+  </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="images.qrc"/>
+ </resources>
  <connections/>
 </ui>

@@ -5,7 +5,9 @@
 #include <QtSql>
 #include <QSqlDatabase>
 #include <QVector>
+#include <QList>
 #include <QFile>
+#include <QTextStream>
 
 
 class SubwayContainer
@@ -15,9 +17,15 @@ public:
 
     void sql_connect();
     void set_line1();
-    void set_line2_3();
+    void set_line2();
+    void set_line3();
     void set_line4();
-    void set();
+    void set1();
+    void set2();
+    void set3();
+    void set4();
+    void data_update();
+    void data_clear();
 
     ~SubwayContainer(){
 
@@ -35,6 +43,12 @@ public:
     QVector<double> lat3;
     QVector<double> lon4;
     QVector<double> lat4;
+
+    QStringList ss;
+    QStringList ss1;
+    QStringList ss2;
+    QStringList ss3;
+    QStringList ss4;
 
 private:
 

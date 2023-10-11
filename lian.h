@@ -4,7 +4,8 @@
 #include <string>
 #include <QVector>
 #include <QList>
-using namespace std;
+#include <QWidget>
+//using namespace std;
 #define X1 l++
 #define X2 l--
 class lian
@@ -12,11 +13,11 @@ class lian
 private:
 
     typedef struct xianlu{
-        QString id;
-        int code;
-        QString other;
-        QString ben;
-        int other_data;
+        QString id;//站点名称
+        int code;//站点当前位置
+        QString other;//站点若是换乘点，则是另一条线路名称
+        QString ben;//站点若是换乘点，则是当前线路名称
+        int other_data;//站点是否是换乘点的标识符
     }Tx;
 
     QVector<QString>A={"王家港站", "石油大学站", "太行山路站", "井冈山路站", "丁家河站", "薛家岛站", "天目山站", "安子站", "新港山路站", "南北屯站", "山里站", "凤凰岛站", "团岛站", "西镇站", "青岛站", "中山路站", "观象山站", "广饶路站", "台东站", "海泊桥站", "小村庄站", "北岭站", "水清沟站", "中心医院站", "胜利桥站", "安顺路站", "青岛北站", "沧安路站", "永年路站", "兴国路站", "南岭路站", "遵义路站", "瑞金路站", "仙家寨站", "流亭站", "凤岗路站", "小寨子站", "正阳中路站", "农业大学站", "沟岔站", "东郭庄站"};
@@ -39,10 +40,11 @@ private:
     QVector<QString>Y;//存储已遍历线路
     QVector<Tx>X_2;//存储dfs函数的返回值
     QVector<QString>Y_2;//存储已遍历线路
-
+    //int san=0;
     QList<Tx>* qd(QString s);//确定是哪一条线路
     bool pd(QString s);//判断是否已经遍历
     bool pd2(QString s);
+    QString fd(QString s);
 public:
     lian();
     bool dfs(QString s, QString z, QString zz);//DFS函数
@@ -51,6 +53,7 @@ public:
     QString printf2(QString s, QString z, QString zz);
     QString prun(QString a, QString b, QString c, int *jie);
     int jie_data=0,jie_data2=0;
+    void cs();
 };
 
 #endif // LIAN_H

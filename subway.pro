@@ -10,6 +10,7 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    form.cpp \
     lian.cpp \
     line.cpp \
     main.cpp \
@@ -18,6 +19,7 @@ SOURCES += \
     subwaywindow.cpp
 
 HEADERS += \
+    form.h \
     lian.h \
     line.h \
     stand.h \
@@ -25,6 +27,7 @@ HEADERS += \
     subwaywindow.h
 
 FORMS += \
+    form.ui \
     subwaywindow.ui
 
 # Default rules for deployment.

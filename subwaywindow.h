@@ -4,6 +4,8 @@
 
 #include "subwaycontainer.h"
 #include "lian.h"
+#include "form.h"
+
 #include <QMainWindow>
 #include <QtSql>
 #include <QSqlDatabase>
@@ -12,6 +14,7 @@
 #include <QGraphicsItem>//图元
 #include <QWheelEvent>
 #include <QFile>
+#include <QMap>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class SubwayWindow; }
@@ -25,7 +28,7 @@ class SubwayWindow : public QMainWindow
 public:
     SubwayWindow(QWidget *parent = nullptr);
     void tu();
-    void wheelEvent(QWheelEvent *event);
+    void timerEvent(QTimerEvent *event);
     ~SubwayWindow();
 
 private slots:
@@ -43,12 +46,19 @@ private slots:
 
     void on_action_5_triggered();
 
+    void on_action_3_triggered();
+
+    void on_action_2_triggered();
+
 private:
     Ui::SubwayWindow *ui;
     int lien=0;
-    QStringList ss;
+    int timeID;
     SubwayContainer sub_data;
     lian lx;
+    QMap<QString,int> l;
+    Form *f;
+    QGraphicsScene *scene;
 };
 
 #endif // SUBWAYWINDOW_H

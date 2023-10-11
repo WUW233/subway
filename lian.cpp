@@ -50,14 +50,14 @@ QList<lian::Tx>::iterator lian::find(QList<Tx>*x,QString s)
 {
     for(auto i=x->begin()+1;i!=x->end();i++)
     {
-        if(i->id.toStdString()==s.toStdString())
+        if(i->id==s)
         {
             //qDebug()<<"success find";
             return i;
         }
         //qDebug()<<i->id.data();
     }
-    qDebug()<<"error find"<<s;
+    //qDebug()<<"error find"<<s;
     return x->begin();
 }
 
@@ -79,21 +79,28 @@ void lian::jie(QList<Tx>*x,QList<Tx>*y,QString s)
     i->other_data=j->code;
     j->other=x->begin()->id;
     j->other_data=i->code;
+    //qDebug()<<i->id<<" "<<i->other;
+    //qDebug()<<j->id<<" "<<j->other<<j->code;
 }
 bool lian::dfs(QString s,QString z,QString zz)
 {
+    if(s=="0")
+        s=fd(z);
+    Y.push_back(s);
     int y=0;//为0时是正向遍历，反之是反向遍历
     QList<lian::Tx>*h=qd(s);//确定是哪个线路
+    //qDebug()<<h->begin()->id;
     QList<lian::Tx>::iterator l=find(h,z);//获得该线路的迭代器
     auto ls=l;//保存该线路的迭代器开始时的状态
     if(l->id=="1" || l->id=="2" || l->id=="3" || l->id=="4")//如果是线路头就报错
         return false;
 
-    while(l<h->end() &&l>=h->begin())
+    while(l<h->end() && l>h->begin())
     {
         if(l->other_data!=0 && pd(l->other))//该站点是换乘站，并且那条线路没有遍历过
         {
             Y.push_back(l->other);//将这条线路加入到已经遍历过的里面
+            //qDebug()<<l->other;
             bool tf=dfs(l->other,l->id,zz);//递归调用函数，找那条线路里面有没有终点
             if(tf)
             {
@@ -120,6 +127,9 @@ bool lian::dfs(QString s,QString z,QString zz)
 }
 bool lian::dfs2(QString s,QString z,QString zz)
 {
+    if(s=="0")
+        s=fd(z);
+    Y.push_back(s);
     int y=1;//为0时是正向遍历，反之是反向遍历
     QList<lian::Tx>*h=qd(s);//确定是哪个线路
     QList<lian::Tx>::iterator l=find(h,z);//获得该线路的迭代器
@@ -187,7 +197,6 @@ bool lian::pd2(QString s)
     }
     return true;
 }
-
 QString lian::printf(QString s, QString z, QString zz)
 {
     jie_data=0;
@@ -206,6 +215,16 @@ QString lian::printf(QString s, QString z, QString zz)
             t.push_back(*i);
         }
         QString str;
+        if(t.size()==2)
+        {
+            str+=prun(s,z,t[1].id,&jie_data);
+            str+="-换乘"+t[1].other+"线:";
+            str+=prun(t[1].other,t[1].id,t[0].id,&jie_data);
+            str+="-换乘"+t[0].other+"线:";
+            str+=prun(t[0].other,t[0].id,zz,&jie_data);
+            return str;
+        }
+
         int u=t.size()-1;
         str+=prun(s,z,t[u].id,&jie_data);
         if(u==0)
@@ -230,7 +249,7 @@ QString lian::printf(QString s, QString z, QString zz)
 QString lian::printf2(QString s, QString z, QString zz)
 {
     jie_data2=0;
-    QVector<lian::Tx>t;
+    QVector<Tx>t;
     QString str;
     Y_2.clear();
     X_2.clear();
@@ -267,7 +286,6 @@ QString lian::printf2(QString s, QString z, QString zz)
     return str;
 
 }
-
 QString lian::prun(QString a, QString b, QString c, int *jie)
 {
     QString str;
@@ -289,4 +307,35 @@ QString lian::prun(QString a, QString b, QString c, int *jie)
     str+=y->id;
     *jie+=1;
     return str;
+}
+QString lian::fd(QString s)
+{
+    for(auto i=A.begin()+1;i<A.end();i++)
+    {
+        if(s==*i)
+            return "1";
+    }
+    for(auto i=B.begin()+1;i<B.end();i++)
+    {
+        if(s==*i)
+            return "2";
+    }
+    for(auto i=C.begin()+1;i<C.end();i++)
+    {
+        if(s==*i)
+            return "3";
+    }
+    for(auto i=D.begin()+1;i<D.end();i++)
+    {
+        if(s==*i)
+            return "4";
+    }
+    return "error";
+}
+void lian::cs()
+{
+    for(auto i=X.begin();i<X.end();i++)
+    {
+        qDebug()<<i->id;
+    }
 }
